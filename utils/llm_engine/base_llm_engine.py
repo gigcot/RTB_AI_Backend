@@ -8,7 +8,6 @@ class BaseLLMEngine:
     def call_openai_api(self, messages):
         try:
             response = self.llm.invoke(messages)
-            print(response.content)
             return response.content
         except Exception as e:
             print(f"LLM 호출 중 오류 발생: {e}")
