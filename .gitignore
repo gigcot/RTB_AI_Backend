@@ -1,0 +1,14 @@
+# Environment
+.env
+.venv
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+__pycache__/
