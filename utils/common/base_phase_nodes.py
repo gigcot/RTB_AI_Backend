@@ -1,10 +1,12 @@
 from utils.common.state_manager import PhaseStateManager
+from utils.common.logging import Logger
+
 class BasePhaseNodes:
     def __init__(self, llm_engine, env_manager):
         self.env_manager = env_manager  
         self.phase_manager = PhaseStateManager()  
         self.llm_engine = llm_engine
-
+        self.logger = Logger(f"{self.__class__.__name__.replace('PhaseNodes','')}").get_logger()
     def phase_prompt_update():
         raise NotImplementedError(" must be implemented in subclasses.")
 
@@ -26,7 +28,10 @@ class BasePhaseNodes:
 
     def chatting(self):
         messages = self.generate_messages()
+        self.logger.info(f"\n\nassistant:\n {messages[0]['content']}\n\nuser:\n{messages[1]['content']}\n\n")
+
         response = self.call_llm(messages)
+        self.logger.info(f"\n\nresponse:\n{response}\n\n")
         return response
 
     def execute(self, state):
