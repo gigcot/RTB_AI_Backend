@@ -3,10 +3,11 @@ from phases.demand_analysis.demand_analysis_graph import DemandAnalysisGraph
 from phases.setup_initial_structure.setup_initial_structure_graph import SetupInitialStructureGraph
 from utils.common.state_manager import EnvStateManager
 from utils.llm_engine.openai_llm import OpenAIEngine
-
+from .env_states import states
 class MainGraph:
     def __init__(self, api_key, model_name, max_tokens):
-        self.env_manager = EnvStateManager()
+        all_states = states
+        self.env_manager = EnvStateManager(all_states)
         self.llm_engine = OpenAIEngine(
                                         api_key=api_key,
                                         model_name=model_name,

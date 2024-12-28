@@ -1,6 +1,8 @@
 class EnvStateManager:
-    def __init__(self):
+    def __init__(self, states=[]):
         self.state = {}
+        for state in states:
+            self.state[state] = ""
 
     def get(self, key, default=None):
         return self.state.get(key, default)
@@ -10,6 +12,7 @@ class EnvStateManager:
     @property
     def get_full_state(self):
         return self.state
+
     
 class PhaseStateManager:
     def __init__(self):
