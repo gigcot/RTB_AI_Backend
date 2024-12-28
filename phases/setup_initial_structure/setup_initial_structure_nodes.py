@@ -10,7 +10,7 @@ class SetupInitialStructurePhaseNodes(BasePhaseNodes):
         self.assistant_role_prompt = assistant_role_prompt
         self.assistant_role_name = assistant_role_name
 
-    def phase_update(self, state):# execute에서 루프문ㄷ만들고 그거 돌아가도록 업데이트 작업
+    def phase_update(self, state):
         self.phase_manager.state['task'] = state.get('task')
         self.phase_manager.state['demand_analysis_result'] = self.env_manager.state['demand_analysis_result']
         self.phase_manager.state['return_type_violation_in_inital_structure'] = self.env_manager.state['return_type_violation_in_inital_structure']
