@@ -6,7 +6,8 @@ class DemandAnalysisPhaseNodes(BasePhaseNodes):
         self.phase_prompt_update()
     def phase_prompt_update(self):    
         self.phase_prompt = phase_prompt
-        self.assistant_prompt = assistant_role_prompt
+        self.assistant_role_prompt = assistant_role_prompt
+        self.assistant_role_name = assistant_role_name
 
     def phase_update(self, state):
         self.phase_manager.state['task'] = state.get('task')
