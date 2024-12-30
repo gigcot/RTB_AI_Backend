@@ -9,4 +9,6 @@ states = [
     "return_type_violation_in_writing_skeleton_code",
     "skeleton_code",
     "impl_step",
+    "current_step",
+    "error_code"
 ]
