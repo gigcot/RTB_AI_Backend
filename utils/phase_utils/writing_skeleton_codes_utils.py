@@ -117,10 +117,12 @@ def parse_text(input_str: str) -> List[Dict[str, str]]:
 
 def validate_response_format(response_text: str):
     import re
-
+    import time
+    
+    datetime_string = time.strftime("%y%m%d%H%M%S")
     lines = response_text.strip().split('\n')
     if lines and lines[0].strip().startswith('```'):
-        return ("이전 작성 시도에 대한 응답: ``` ``` 블록은 파일 코드와 docstring을 적은 내용에 사용해야 합니다.", False)
+        return (f"이전 응답에서 반환 형식을 위반하여 코드 실행 전에 재응답을 요청하였습니다.:\n위반사유: 파일명을 코드블록과 함께 감싸면 안됩니다. ``` ``` 블록은 코드블록에만 사용해야 합니다.{datetime_string}", False)
     
     header_pattern = re.compile(r'^(#{1,6})\s+(.+)/\s*$')
     file_pattern = re.compile(r'^(#{1,6})\s+([\w/]+\.py)\s*$')
@@ -139,13 +141,13 @@ def validate_response_format(response_text: str):
             headers.append((num_hashes, dir_name))
     
     if not headers:
-        return ("이전 작성 시도에 대한 응답: #으로 레벨을 구분하여 표현된 프로젝트 디렉토리가 없습니다.", False)
+        return (f"이전 응답에서 반환 형식을 위반하여 코드 실행 전에 재응답을 요청하였습니다.:\n위반사유: # 헤더로 레벨을 구분하여 표현된 프로젝트 디렉토리가 없습니다.{datetime_string}", False)
     
     min_hash = min(header[0] for header in headers)
     top_level_dirs = [header for header in headers if header[0] == min_hash]
     
     if len(top_level_dirs) != 1:
-        return ("이전 작성 시도에 대한 응답: 코드 작성은 최상단 디렉토리 부터 #으로 트리구조가 구분되도록 작성 해야 합니다.", False)
+        return (f"이전 응답에서 반환 형식을 위반하여 코드 실행 전에 재응답을 요청하였습니다.:\n위반사유: 코드 작성은 최상단 디렉토리 부터 #으로 트리구조가 구분되도록 작성 해야 합니다.{datetime_string}", False)
     
     top_level_dir_name = top_level_dirs[0][1]
     
@@ -188,7 +190,7 @@ def validate_response_format(response_text: str):
             break
     
     if not test_init_exists:
-        return ("'test/__init__.py' 또는 'tests/__init__.py' 파일이 스켈레톤 코드에 작성되어 있어야 합니다. 또한 빈 디렉토리는 __init__.py를 작성 해야 합니다.", False)
+        return (f"이전 응답에서 반환 형식을 위반하여 코드 실행 전에 재응답을 요청하였습니다.:\n위반사유:'test/__init__.py' 또는 'tests/__init__.py' 파일이 스켈레톤 코드에 작성되어 있어야 합니다. 또한 빈 디렉토리는 __init__.py를 작성 해야 합니다.{datetime_string}", False)
     
     return ("형식이 올바릅니다.", True)
 
