@@ -6,7 +6,7 @@ class WritingSkeletonCodePhaseNodes(BasePhaseNodes):
     def __init__(self, llm_engine, env_manager):
         super().__init__(llm_engine, env_manager)
         self.phase_prompt_update()
-        self.output_dir = "./output"
+        self.output_dir = "output"
     def phase_prompt_update(self):
         self.phase_prompt = phase_prompt
         self.assistant_role_name = assistant_role_name
