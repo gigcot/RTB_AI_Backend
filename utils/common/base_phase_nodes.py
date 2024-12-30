@@ -29,7 +29,7 @@ class BasePhaseNodes:
 
     def chatting(self):
         messages = self.generate_messages()
-        self.logger.info(f"\n\nassistant:\n {messages[0]['content']}\n\nuser:\n{messages[1]['content']}\n\n")
+        self.logger.info(f"\n\nsystem:\n {messages[0]['content']}\nassistant_role_name:{messages[2]['name']}\nassistatnt_role_prompt:{messages[2]['content']}\n\nuser:\n{messages[1]['content']}\n\n")
 
         response = self.call_llm(messages)
         self.logger.info(f"\n\nresponse:\n{response}\n\n")
